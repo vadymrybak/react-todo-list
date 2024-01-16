@@ -1,16 +1,15 @@
 import { Button, Checkbox, IconButton, List, ListItem, ListItemButton, ListItemText, TextField } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import TodoListComponent from "./TodoListComponent";
 
-interface ITODOListItem {
+export interface ITODOListItem {
     id: string;
     text: string;
     comleted: boolean;
 }
 
-function TodoListComponent() {
+function TodoParentComponent() {
     const didMount = useRef(false);
     const [list, setList] = useState<ITODOListItem[]>(localStorage.getItem("list") ? JSON.parse(localStorage.getItem("list") as string) : []);
     const [todoText, setTodoText] = useState<string>("");
@@ -65,7 +64,7 @@ function TodoListComponent() {
         handleTODOAction();
     }
 
-    const handleTodoCheckboxChange = (id: string) => (e: React.ChangeEvent, checked: boolean) => {
+    const handleTodoCheckboxChange = (id: string, checked: boolean) => {
         const newTodos = list.map((todo) => {
             if (todo.id === id) {
                 return { ...todo, comleted: checked };
@@ -75,7 +74,7 @@ function TodoListComponent() {
         setList(newTodos);
     }
 
-    const handleDeleteTodo = (id: string) => (e: React.MouseEvent) => {
+    const handleDeleteTodo = (id: string) => {
         const newTodos = list.filter((todo) => todo.id !== id);
         setList(newTodos);
         setUpdateId(null);
@@ -87,7 +86,7 @@ function TodoListComponent() {
         }
     }
 
-    const handleTodoEditClick = (id: string) => (e: React.MouseEvent) => {
+    const handleTodoEditClick = (id: string) => {
         setUpdateId(id);
 
         const searchedElement = list.find(el => el.id === id);
@@ -110,48 +109,10 @@ function TodoListComponent() {
                     onClick={handleTodoActionClick}>{updateId ? "Update TODO" : "Add TODO"}</Button>
             </div>
 
-            <List>
-                {
-                    list.map(el => {
-                        return (
-                            <ListItem
-                                key={el.id}
-                                component="a"
-                                href="#simple-list"
-                                secondaryAction={
-                                    <div style={{ display: "flex", justifyContent: "center", columnGap: "10px" }}>
-                                        <IconButton
-                                            edge="end"
-                                            aria-label="edit"
-                                            onClick={handleTodoEditClick(el.id)}
-                                            disabled={el.comleted}
-                                        >
-                                            <EditIcon />
-                                        </IconButton>
-                                        <Checkbox
-                                            edge="end"
-                                            onChange={handleTodoCheckboxChange(el.id)}
-                                            checked={el.comleted}
-                                            inputProps={{ 'aria-labelledby': el.id }}
-                                        />
-                                        <IconButton
-                                            edge="end"
-                                            aria-label="delete"
-                                            onClick={handleDeleteTodo(el.id)}
-                                        >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </div>
-                                }>
-                                <ListItemText primary={el.text} />
-                            </ListItem>
-                        )
-                    })
-                }
-            </List>
+            <TodoListComponent onDelete={(id) => handleDeleteTodo(id)} onEdit={(id) => handleTodoEditClick(id)} onCheck={(id, checked) => handleTodoCheckboxChange(id, checked)} list={list} />
 
         </div >
     )
 }
 
-export default TodoListComponent;
+export default TodoParentComponent;

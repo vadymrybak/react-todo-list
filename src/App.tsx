@@ -1,6 +1,6 @@
 import { Container } from '@mui/material';
 import './App.css';
-import TodoListComponent from './TodoListComponent';
+import TodoParentComponent from './Components/TodoParentComponent';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <header className="App-header">
           TODO List
         </header>
-        <TodoListComponent />
+        <TodoParentComponent />
       </Container>
     </>
 
