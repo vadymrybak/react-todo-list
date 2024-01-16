@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+div.TodoComponent {
+  padding: 20px;
+  background-color: #555962;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #DFF1FF;
+}
+
+span.MuiListItemText-primary {
+  color: #DFF1FF;
+  font-weight: bold;
+}
+
+button.MuiButton-contained {
+  background-color: #DBA11C;
+  color: #282c34;
+  font-weight: bold;
+}
+
+button.MuiButton-contained:hover {
+  background-color: #bc880e;
+}
+
+input.MuiOutlinedInput-input,
+.MuiOutlinedInput-root {
+  border-color: #DBA11C;
+  color: #DFF1FF;
+}
+
+.MuiInputLabel-root {
+  color: #DBA11C;
+}
